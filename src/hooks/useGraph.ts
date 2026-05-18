@@ -3,6 +3,7 @@ import { I18N, type Language } from "../i18n";
 import { detectLang } from "../language";
 import { parseSQLTables } from "../parser/sql";
 import { parseDBML } from "../parser/dbml";
+import { parseSimpleSyntax } from "../parser/simple";
 import {
   generateChenModelData,
   patchRelationshipLinkPoints,
@@ -160,7 +161,11 @@ export function useGraph({ t, initialLang }: UseGraphOptions): UseGraphResult {
       // 解析放在保存旧图之前：解析失败时不应触发任何 IndexedDB 写入
       // （既不为新输入排程保存，也不为旧图落档），否则会把"用户随手清空 +
       // 粘错语法"的中间状态固化进历史。
-      let parsedData = parseSQLTables(trimmed);
+      // 按优先级尝试解析：简单语法 -> SQL -> DBML
+      let parsedData = parseSimpleSyntax(trimmed);
+      if (parsedData.tables.length === 0) {
+        parsedData = parseSQLTables(trimmed);
+      }
       if (parsedData.tables.length === 0) {
         parsedData = parseDBML(trimmed);
       }

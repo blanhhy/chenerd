@@ -1,8 +1,8 @@
 export type AttributeLabelMode = "name" | "comment" | "any";
 export type NodeType = "entity" | "attribute" | "relationship";
 export type KeyType = "pk" | "normal";
-// "1" or "N" 端基数。M:N 的两端都是 "N"。
-export type Cardinality = "1" | "N";
+// "1" or "N" 端基数。M:N 的两端分别用 "N" 和 "M" 表示，以避免歧义。
+export type Cardinality = "1" | "N" | "M";
 
 export interface ParsedColumn {
   name: string;

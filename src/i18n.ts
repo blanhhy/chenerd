@@ -1,15 +1,15 @@
 export const I18N = {
         zh: {
           eyebrow: "Chen Model · Entity-Relationship",
-          title: "SQL / DBML 转 <em>ER 图</em> 生成器",
-          subtitle: "把建表语句或 DBML 一键渲染为 Chen 模型实体-关系图",
+          title: "ER 图生成器",
+          subtitle: "使用简单语法定义实体、属性和关系，一键渲染为 Chen 模型实体-关系图",
           hint: '<span class="header-hint-row">双击编辑节点 · 滚轮缩放 · Ctrl+滚轮旋转 · 拖拽排布</span><span class="header-hint-row header-hint-row--secondary">Ctrl+Z 撤销 / Ctrl+Y 重做</span>',
           pageTitle: "SQL/DBML2ER",
-          cardInputTitle: "SQL / DBML",
+          cardInputTitle: "ER 语法",
           cardPreviewTitle: "ER 图预览",
           showComment: "展示 COMMENT",
           hideFields: "隐藏属性",
-          editorPlaceholder: "在此处粘贴您的 CREATE TABLE 或 DBML 语句...",
+          editorPlaceholder: "在此处输入 ER 图语法...\n\n语法示例：\nentity 学生 { 学号, 姓名 }\nentity 课程 { 课程号, 课程名 }\n学生 1--选修--n 课程",
           btnGenerate: "⚡ 生成 ER 图",
           btnGenerateShort: "⚡ 生成",
           btnExport: "📥 导出 SVG",
@@ -47,44 +47,29 @@ export const I18N = {
           historyComment: "显示注释",
           errEmpty: "输入为空。",
           errNoTable:
-            "未找到有效的 CREATE TABLE 或 Table 定义。请确保您的 SQL 或 DBML 语法正确。",
+            "未找到有效的实体定义。请确保您的 ER 图语法正确。",
           errParse: "SQL 解析失败",
           errParseHint: "。请检查 SQL 语法是否正确。",
-          sample: `-- 示例 DBML，请在此处粘贴您的 DBML 或 SQL 语句
-Table 用户 {
-  编号 INT [pk, increment]
-  用户名 VARCHAR(255) [not null]
-  邮箱 VARCHAR(255) [unique]
-  创建时间 TIMESTAMP
-}
+          sample: `-- 示例：使用简单语法定义 ER 图
+entity 学生 { 学号, 姓名, 年龄, 性别 }
+entity 课程 { 课程号, 课程名, 学分, 课时 }
+entity 教师 { 教师号, 姓名, 职称 }
 
-Table 国家 {
-  编号 INT [pk]
-  名称 VARCHAR(255) [not null]
-}
-
-Table 文章 {
-  文章编号 INT [pk]
-  内容 TEXT
-}
-
-Ref: 用户.属于 > 国家.编号
-Ref: 文章.作者 > 用户.编号
-`,
+学生 1--选修--n 课程
+教师 1--讲授--n 课程`
         },
         en: {
           eyebrow: "Chen Model · Entity-Relationship",
-          title: "Turn SQL / DBML into an <em>ER Diagram</em>",
+          title: "ER Diagram Generator",
           subtitle:
-            "Render CREATE TABLE statements or DBML as a Chen-model entity-relationship diagram",
+            "Define entities, attributes and relationships with simple syntax, render as Chen-model ER diagram",
           hint: '<span class="header-hint-row">Double-click to edit · Scroll to zoom · Ctrl+Scroll to rotate · Drag to arrange</span><span class="header-hint-row header-hint-row--secondary">Ctrl+Z undo / Ctrl+Y redo</span>',
           pageTitle: "SQL/DBML2ER",
-          cardInputTitle: "SQL / DBML",
+          cardInputTitle: "ER 语法",
           cardPreviewTitle: "ER Preview",
           showComment: "Show comments",
           hideFields: "Hide attributes",
-          editorPlaceholder:
-            "Paste your CREATE TABLE or DBML statement here...",
+          editorPlaceholder: "Enter ER diagram syntax...\n\nSyntax example:\nentity Student { ID, Name }\nentity Course { ID, Name }\nStudent 1--Enroll--n Course",
           btnGenerate: "⚡ Generate",
           btnGenerateShort: "⚡ Gen",
           btnExport: "📥 Export SVG",
@@ -126,27 +111,13 @@ Ref: 文章.作者 > 用户.编号
             "No valid CREATE TABLE or Table definition found. Make sure your SQL or DBML syntax is correct.",
           errParse: "SQL parsing failed",
           errParseHint: ". Please check your SQL syntax.",
-          sample: `-- Sample DBML — paste your DBML or SQL statements here
-Table User {
-  ID INT [pk, increment]
-  Username VARCHAR(255) [not null]
-  Email VARCHAR(255) [unique]
-  CreatedAt TIMESTAMP
-}
+          sample: `-- Example: Define ER diagram using simple syntax
+entity Student { StudentID, Name, Age, Gender }
+entity Course { CourseID, CourseName, Credit, Hours }
+entity Teacher { TeacherID, Name, Title }
 
-Table Country {
-  ID INT [pk]
-  Name VARCHAR(255) [not null]
-}
-
-Table Article {
-  ArticleID INT [pk]
-  Content TEXT
-}
-
-Ref: User.BelongsTo > Country.ID
-Ref: Article.Author > User.ID
-`,
+Student 1--Enroll--n Course
+Teacher 1--Teach--n Course`
         },
       } as const;
 
