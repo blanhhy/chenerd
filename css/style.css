@@ -671,8 +671,12 @@ body::before {
 .diagram-error-overlay .error-message {
   pointer-events: auto;
   max-width: min(520px, 90%);
-  background: var(--app-bg-overlay);
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+  background: color-mix(in srgb, var(--color-error) 90%, transparent);
+  color: #fff;
+  border: none;
+  border-radius: 999px;
+  padding: 10px 20px;
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* ═══════════════════════════════════════
